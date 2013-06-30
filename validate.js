@@ -27,7 +27,7 @@ $(function(){
     var exp_flag = !!cc.exp.match(exp_re);
     //expect the first two digits between 1 and 12
     var month_re = /^(\d{2})/;
-    var exp_month = cc.exp.match(month_re);
+    var exp_month = !!cc.exp.match(month_re);
     if(exp_month){
       var month = exp_month[0];
       console.log(month);
@@ -40,10 +40,16 @@ $(function(){
       exp_flag = false;
     }
 
+    //match credit card carholder name
+    //expect a string with length > 1
+    var name_re = /^.+$/;
+    var name_flag = !!cc.name.match(name_re);
+
     console.log(
       'number_flag: ', number_flag,
-      'ccv_flag: ', ccv_flag,
-      'exp_flag: ', exp_flag
+      '\nccv_flag: ', ccv_flag,
+      '\nexp_flag: ', exp_flag,
+      '\nname_flag: ', name_flag
     );
 
 
@@ -80,6 +86,7 @@ $(function(){
       }
       if(data[i].name === 'name'){
         cc.name = data[i].value;
+        cc.name = cc.name.split(' ').join('');
       }
       if(data[i].name === 'address'){
         cc.address = data[i].value;
