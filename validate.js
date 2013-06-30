@@ -2,7 +2,6 @@ $(function(){
 
   //validation functions
   var check_cc = function(cc){
-    var valid_or_not = false;
     //expect cc as a {}
     //return true or false
 
@@ -27,7 +26,8 @@ $(function(){
     var exp_flag = !!cc.exp.match(exp_re);
     //expect the first two digits between 1 and 12
     var month_re = /^(\d{2})/;
-    var exp_month = !!cc.exp.match(month_re);
+    var exp_month = cc.exp.match(month_re); // do NOT convert to boolean
+
     if(exp_month){
       var month = exp_month[0];
       console.log(month);
@@ -58,16 +58,26 @@ $(function(){
       '\naddress_flag: ', address_flag
     );
 
+    var valid_flags = {
+      'number_flag': number_flag,
+      'ccv_flag': ccv_flag,
+      'exp_flag': exp_flag,
+      'name_flag': name_flag,
+      'address_flag': address_flag,
+      'final_flag': false //default
+    };
 
-    if(number_flag && ccv_flag){
-      valid_or_not = true;
+
+    if(number_flag && ccv_flag && exp_flag && name_flag && address_flag){
+      valid_flags.final_flag = true;
     }
-    return valid_or_not;
+
+    return valid_flags;
   };
 
   var toggle_error = function(msg){
-    $('.error span').text(msg);
-    $('.error').toggle();
+    $('.error span').html(msg);
+    $('.error').show();
   };
 
   var formHandler = function(event){
@@ -100,11 +110,19 @@ $(function(){
       }
     }
 
-    console.log(cc);
-    check_cc(cc);
-
+    var flags = check_cc(cc);
+    if(!flags.final_flag){
+      var error_msg = 'Credit card error.<br>';
+      for(var key in flags){
+        if(!flags[key] && key !== 'final_flag') {
+          error_msg += key + '<br>';
+        }
+      }
+      toggle_error(error_msg);
+    }
+    console.log(flags);
     // if(!check_cc(cc)){
-      //toggle_error('Credit card error.');
+      //toggle_error('');
     // }
 
     event['preventDefault'](); // prevents the page from reloading
