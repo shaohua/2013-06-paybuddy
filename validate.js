@@ -5,6 +5,9 @@ $(function(){
 
     var data = $('form :input').serializeArray();
 
+    var cc = {};
+    
+
     event['preventDefault'](); // prevents the page from reloading
   };
 
