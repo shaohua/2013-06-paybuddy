@@ -7,8 +7,25 @@
 <body>
   To bill a credit card, simply fill out this form:
   <form>
-    <label>Bill Description:</label>
-    <input type="text" id="desc" /><br>
+    <h3>Bill Description:</h3>
+    Description: <input type="text" id="desc" /><br>
+    Amount: <input type="text" id="amount" /><br>
+    <br>
+    <h3>Credit Card Info:</h3>
+    Number: <input type="text" id="number" /><br>
+    CCV: <input type="text" id="ccv" /><br>
+    Expiration date: <input type="text" id="exp" /><br>
+    Cardholder Name: <input type="text" id="name" /><br>
+    Billing address: <input type="text" id="address" /><br>
+    <br>
+    <h3>Options:</h3>
+    <input type="radio" name="once" value="once"/>Once<br>
+    <input type="radio" name="monthly" value="monthly"/>Monthly<br>
+    <input type="radio" name="annually" value="annually" />Annually<br>
+
+    <input type="checkbox" id="checkbox_email" />Want a confirmation email?<br>
+    <input type="email" id="email" /><br>
+
     <input type="submit" />
   </form>
 </body>
