@@ -45,11 +45,17 @@ $(function(){
     var name_re = /^.+$/;
     var name_flag = !!cc.name.match(name_re);
 
+    //match credit card billing address
+    //expect a string with length > 1
+    var address_re = /^.+$/;
+    var address_flag = !!cc.address.match(address_re);
+
     console.log(
       'number_flag: ', number_flag,
       '\nccv_flag: ', ccv_flag,
       '\nexp_flag: ', exp_flag,
-      '\nname_flag: ', name_flag
+      '\nname_flag: ', name_flag,
+      '\naddress_flag: ', address_flag
     );
 
 
@@ -90,6 +96,7 @@ $(function(){
       }
       if(data[i].name === 'address'){
         cc.address = data[i].value;
+        cc.address = $.trim(cc.address);
       }
     }
 
