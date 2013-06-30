@@ -20,10 +20,30 @@ $(function(){
     var ccv_re = /^\d{3,4}$/;
     var ccv_flag = !!cc.ccv.match(ccv_re);
 
+    //match credit card expiration date
+    //expect ddmm
+    //expect 4 digits
+    var exp_re = /^\d{4}$/;
+    var exp_flag = !!cc.exp.match(exp_re);
+    //expect the first two digits between 1 and 12
+    var month_re = /^(\d{2})/;
+    var exp_month = cc.exp.match(month_re);
+    if(exp_month){
+      var month = exp_month[0];
+      console.log(month);
+      if(month>0 && month<13){
+        exp_flag = exp_flag && true;
+      } else {
+        exp_flag = false;
+      }
+    } else {
+      exp_flag = false;
+    }
 
     console.log(
       'number_flag: ', number_flag,
-      'ccv_flag: ', ccv_flag
+      'ccv_flag: ', ccv_flag,
+      'exp_flag: ', exp_flag
     );
 
 
@@ -51,9 +71,12 @@ $(function(){
       }
       if(data[i].name === 'ccv'){
         cc.ccv = data[i].value;
+        cc.ccv = cc.ccv.split(' ').join('');
       }
       if(data[i].name === 'exp'){
         cc.exp = data[i].value;
+        cc.exp = cc.exp.split(' ').join('');
+        cc.exp = cc.exp.split('/').join(''); //remove '/'
       }
       if(data[i].name === 'name'){
         cc.name = data[i].value;
