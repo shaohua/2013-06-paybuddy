@@ -11,17 +11,25 @@ $(function(){
 
     //match credit card number
     //16 digits
-    var number_re = /\d{16}/;
+    var number_re = /^\d{16}$/;
     var number_flag = !!cc.number.match(number_re);
-    if(number_flag){
-      valid_or_not = true;
-    }
 
-    //
+
+    //match credit card ccv
+    //3 or 4 digits
+    var ccv_re = /^\d{3,4}$/;
+    var ccv_flag = !!cc.ccv.match(ccv_re);
+
 
     console.log(
-      'number_flag: ', number_flag
+      'number_flag: ', number_flag,
+      'ccv_flag: ', ccv_flag
     );
+
+
+    if(number_flag && ccv_flag){
+      valid_or_not = true;
+    }
     return valid_or_not;
   };
 
@@ -58,9 +66,9 @@ $(function(){
     console.log(cc);
     check_cc(cc);
 
-    if(!check_cc(cc)){
+    // if(!check_cc(cc)){
       //toggle_error('Credit card error.');
-    }
+    // }
 
     event['preventDefault'](); // prevents the page from reloading
   };
