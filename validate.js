@@ -120,6 +120,12 @@ $(function(){
       }
       toggle_error(error_msg);
     }
+
+    if(flags.final_flag){
+      $('.success').show();
+      $('.error').hide();
+      $('form')[0].reset();
+    }
     console.log(flags);
     // if(!check_cc(cc)){
       //toggle_error('');
